@@ -7,6 +7,7 @@ import 'package:meals/screens/meals.dart';
 import 'package:meals/widgets/main_drawer.dart';
 import 'package:meals/providers/favorites_provider.dart';
 import 'package:meals/providers/filters_provider.dart';
+import 'package:meals/models/meal.dart';
 
 const kInitialFilters = {
   Filter.glutenFree: false,
@@ -64,24 +65,112 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(activePageTitle),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: () {
+              showSearch(
+                context: context,
+                delegate: MealSearchDelegate(availableMeals),
+              );
+            },
+          ),
+        ],
       ),
       drawer: MainDrawer(
         onSelectScreen: _setScreen,
       ),
       body: activePage,
       bottomNavigationBar: BottomNavigationBar(
-          onTap: _selectPage,
-          currentIndex: _selectedPageIndex,
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.set_meal),
-              label: 'Categories',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.star),
-              label: 'Favorites',
-            ),
-          ]),
+        onTap: _selectPage,
+        currentIndex: _selectedPageIndex,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.set_meal),
+            label: 'Categories',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.star),
+            label: 'Favorites',
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class MealSearchDelegate extends SearchDelegate {
+  final List<Meal> availableMeals;
+
+  MealSearchDelegate(this.availableMeals);
+  @override
+  ThemeData appBarTheme(BuildContext context) {
+    // Custom theme for the search bar
+    return Theme.of(context).copyWith(
+      textTheme: const TextTheme(
+        titleLarge: TextStyle( // Change the color of the search text
+          color: Colors.white, // You can customize this color
+          fontSize: 18,
+        ),
+      ),
+      appBarTheme: AppBarTheme(
+        backgroundColor: Colors.deepPurple, // Customize app bar color
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        hintStyle: TextStyle(
+          color: Colors.white70, // Color for the hint text in the search field
+        ),
+      ),
+    );
+  }
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    return [
+      IconButton(
+        icon: const Icon(Icons.clear),
+        onPressed: () {
+          query = '';
+        },
+      ),
+    ];
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    return IconButton(
+      icon: const Icon(Icons.arrow_back),
+      onPressed: () {
+        close(context, null);
+      },
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    final filteredMeals = availableMeals.where((meal) {
+      return meal.title.toLowerCase().contains(query.toLowerCase());
+    }).toList();
+
+    return MealsScreen(meals: filteredMeals);
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    final filteredMeals = availableMeals.where((meal) {
+      return meal.title.toLowerCase().contains(query.toLowerCase());
+    }).toList();
+
+    return ListView.builder(
+      itemCount: filteredMeals.length,
+      itemBuilder: (ctx, index) {
+        return ListTile(
+          title: Text(filteredMeals[index].title),
+          onTap: () {
+            query = filteredMeals[index].title;
+            showResults(context);
+          },
+        );
+      },
     );
   }
 }

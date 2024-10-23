@@ -1,3 +1,7 @@
+animated_search_bar
+2.12
+file:///Users/gracebergquist/.pub-cache/hosted/pub.dev/animated_search_bar-2.7.2/
+file:///Users/gracebergquist/.pub-cache/hosted/pub.dev/animated_search_bar-2.7.2/lib/
 async
 2.18
 file:///Users/gracebergquist/.pub-cache/hosted/pub.dev/async-2.11.0/
@@ -42,6 +46,14 @@ flutter_riverpod
 2.17
 file:///Users/gracebergquist/.pub-cache/hosted/pub.dev/flutter_riverpod-2.6.1/
 file:///Users/gracebergquist/.pub-cache/hosted/pub.dev/flutter_riverpod-2.6.1/lib/
+flutter_search_bar
+2.12
+file:///Users/gracebergquist/.pub-cache/hosted/pub.dev/flutter_search_bar-3.0.0/
+file:///Users/gracebergquist/.pub-cache/hosted/pub.dev/flutter_search_bar-3.0.0/lib/
+fuzzywuzzy
+3.0
+file:///Users/gracebergquist/.pub-cache/hosted/pub.dev/fuzzywuzzy-1.2.0/
+file:///Users/gracebergquist/.pub-cache/hosted/pub.dev/fuzzywuzzy-1.2.0/lib/
 google_fonts
 2.14
 file:///Users/gracebergquist/.pub-cache/hosted/pub.dev/google_fonts-4.0.5/
@@ -142,6 +154,10 @@ string_scanner
 2.18
 file:///Users/gracebergquist/.pub-cache/hosted/pub.dev/string_scanner-1.2.0/
 file:///Users/gracebergquist/.pub-cache/hosted/pub.dev/string_scanner-1.2.0/lib/
+string_similarity
+2.12
+file:///Users/gracebergquist/.pub-cache/hosted/pub.dev/string_similarity-2.1.1/
+file:///Users/gracebergquist/.pub-cache/hosted/pub.dev/string_similarity-2.1.1/lib/
 term_glyph
 2.12
 file:///Users/gracebergquist/.pub-cache/hosted/pub.dev/term_glyph-1.2.1/

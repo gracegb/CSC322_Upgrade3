@@ -38,7 +38,11 @@ dependencies:
   google_fonts: ^4.0.3
   transparent_image: ^2.0.1
   flutter_riverpod: ^2.6.1
-
+  animated_search_bar: ^2.7.2
+  flutter_search_bar: ^3.0.0
+  fuzzywuzzy: ^1.2.0
+  string_similarity: ^2.1.1
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
