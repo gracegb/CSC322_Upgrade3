@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'package:meals/models/meal.dart';
 import 'package:meals/providers/favorites_provider.dart';
+import 'package:meals/screens/grocery_list.dart';
 
 class MealDetailsScreen extends ConsumerWidget {
   const MealDetailsScreen({
@@ -19,35 +19,49 @@ class MealDetailsScreen extends ConsumerWidget {
     final isFavorite = favoriteMeals.contains(meal);
 
     return Scaffold(
-        appBar: AppBar(title: Text(meal.title), actions: [
-          IconButton(
-            onPressed: () {
-              final wasAdded = ref
-                  .read(favoriteMealsProvider.notifier)
-                  .toggleMealFavoriteStatus(meal);
-              ScaffoldMessenger.of(context).clearSnackBars();
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(
-                      wasAdded ? 'Meal added as a favorite.' : 'Meal removed.'),
-                ),
-              );
-            },
-            icon: AnimatedSwitcher(
-              duration: const Duration(milliseconds: 300),
-              transitionBuilder: (child, animation) {
-                return RotationTransition(
-                  turns: Tween<double>(begin: 0.5, end: 1).animate(animation),
-                  child: child,
+        appBar: AppBar(
+          title: Text(meal.title),
+          actions: [
+            IconButton(
+              onPressed: () {
+                final wasAdded = ref
+                    .read(favoriteMealsProvider.notifier)
+                    .toggleMealFavoriteStatus(meal);
+                ScaffoldMessenger.of(context).clearSnackBars();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(wasAdded
+                        ? 'Meal added as a favorite.'
+                        : 'Meal removed.'),
+                  ),
                 );
               },
-              child: Icon(
-                isFavorite ? Icons.star : Icons.star_border,
-                key: ValueKey(isFavorite),
+              icon: AnimatedSwitcher(
+                duration: const Duration(milliseconds: 300),
+                transitionBuilder: (child, animation) {
+                  return RotationTransition(
+                    turns: Tween<double>(begin: 0.5, end: 1).animate(animation),
+                    child: child,
+                  );
+                },
+                child: Icon(
+                  isFavorite ? Icons.star : Icons.star_border,
+                  key: ValueKey(isFavorite),
+                ),
               ),
             ),
-          )
-        ]),
+            IconButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (ctx) => GroceryList(meal: meal),
+                  ),
+                );
+              },
+              icon: const Icon(Icons.shopping_cart),
+            ),
+          ],
+        ),
         body: SingleChildScrollView(
           child: Column(
             children: [
