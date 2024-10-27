@@ -13,14 +13,15 @@ class MainDrawer extends StatelessWidget {
           DrawerHeader(
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-                gradient: LinearGradient(
-              colors: [
-                Theme.of(context).colorScheme.primaryContainer,
-                Theme.of(context).colorScheme.primaryContainer.withOpacity(0.8),
-              ],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            )),
+              gradient: LinearGradient(
+                colors: [
+                  Theme.of(context).colorScheme.primaryContainer,
+                  Theme.of(context).colorScheme.primaryContainer.withOpacity(0.8),
+                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+            ),
             child: Row(
               children: [
                 Icon(
@@ -47,9 +48,9 @@ class MainDrawer extends StatelessWidget {
             title: Text(
               'Meals',
               style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                color: Theme.of(context).colorScheme.onSurface,
-                fontSize: 24,
-              ),
+                    color: Theme.of(context).colorScheme.onSurface,
+                    fontSize: 24,
+                  ),
             ),
             onTap: () {
               onSelectScreen('meals');
@@ -64,12 +65,29 @@ class MainDrawer extends StatelessWidget {
             title: Text(
               'Filters',
               style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                color: Theme.of(context).colorScheme.onSurface,
-                fontSize: 24,
-              ),
+                    color: Theme.of(context).colorScheme.onSurface,
+                    fontSize: 24,
+                  ),
             ),
             onTap: () {
               onSelectScreen('filters');
+            },
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.calendar_today,
+              size: 26,
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
+            title: Text(
+              'Meal Plan',
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                    color: Theme.of(context).colorScheme.onSurface,
+                    fontSize: 24,
+                  ),
+            ),
+            onTap: () {
+              onSelectScreen('meal_plan');
             },
           ),
         ],

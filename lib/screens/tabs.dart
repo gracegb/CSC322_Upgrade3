@@ -3,10 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:meals/screens/categories.dart';
 import 'package:meals/screens/filters.dart';
+import 'package:meals/screens/meal_plan.dart';
 import 'package:meals/screens/meals.dart';
 import 'package:meals/widgets/main_drawer.dart';
 import 'package:meals/providers/favorites_provider.dart';
 import 'package:meals/providers/filters_provider.dart';
+
 import 'package:meals/models/meal.dart';
 
 const kInitialFilters = {
@@ -35,11 +37,17 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
   }
 
   void _setScreen(String identifier) async {
-    Navigator.of(context).pop();
+    Navigator.of(context).pop(); // Close drawer
     if (identifier == 'filters') {
       await Navigator.of(context).push<Map<Filter, bool>>(
         MaterialPageRoute(
           builder: (ctx) => const FiltersScreen(),
+        ),
+      );
+    } else if (identifier == 'meal_plan') {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (ctx) => const MealPlanScreen(), // Navigate to Meal Plan Screen
         ),
       );
     }
@@ -103,26 +111,27 @@ class MealSearchDelegate extends SearchDelegate {
   final List<Meal> availableMeals;
 
   MealSearchDelegate(this.availableMeals);
+  
   @override
   ThemeData appBarTheme(BuildContext context) {
-    // Custom theme for the search bar
     return Theme.of(context).copyWith(
       textTheme: const TextTheme(
-        titleLarge: TextStyle( // Change the color of the search text
-          color: Colors.white, // You can customize this color
+        titleLarge: TextStyle(
+          color: Colors.white,
           fontSize: 18,
         ),
       ),
       appBarTheme: AppBarTheme(
-        backgroundColor: Colors.deepPurple, // Customize app bar color
+        backgroundColor: Colors.deepPurple,
       ),
       inputDecorationTheme: InputDecorationTheme(
         hintStyle: TextStyle(
-          color: Colors.white70, // Color for the hint text in the search field
+          color: Colors.white70,
         ),
       ),
     );
   }
+
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
